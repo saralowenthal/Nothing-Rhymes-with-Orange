@@ -4,6 +4,9 @@ import styles from '../styles/home.module.css';
 export default function Home() {
     // storing value of the search input until the form is sibmitted 
     const [searchTerm, setSearchTerm] = useState('');
+    
+    const [hasSearched, setHasSearched] = useState(false); // new state
+
     const handleChange = (event) => {
       setSearchTerm(event.target.value);
     }
@@ -25,13 +28,16 @@ export default function Home() {
       
       // store the results
       setSearchResults(paletteJson);
+
+      // mark that a search was done
+      setHasSearched(true);
     }
 
     // found online
     // const isDark = hex => parseInt(hex.replace('#', ''), 16) < 0x888888;
     
     return (
-      <div>
+      <div className={styles.page}>
         <h1>Search Color Palettes</h1>
 
         <form onSubmit={handleSearch}>
@@ -40,6 +46,11 @@ export default function Home() {
         </form>
 
         <div className={styles.results} >
+
+          {hasSearched && searchResults.length === 0 && (
+           <p className={styles.noResults}>No results found for "{searchTerm}".</p>        
+          )}
+
           {searchResults.map(result => 
             <div className={styles.result} key={result.id}>
                 <span className={styles.text}>{result.text}</span>
