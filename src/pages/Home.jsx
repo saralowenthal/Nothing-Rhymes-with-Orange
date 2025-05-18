@@ -9,6 +9,7 @@ export default function Home() {
 
     const handleChange = (event) => {
       setSearchTerm(event.target.value);
+      setHasSearched(false);
     }
     
     // search using the API
