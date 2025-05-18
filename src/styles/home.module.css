@@ -1,3 +1,13 @@
+/* Container for the whole page */
+.page {
+    padding-top: 6rem; /* space for fixed navbar */
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Inter", sans-serif;
+}
+
 .results {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -58,4 +68,49 @@
     z-index: 5;
     border-radius: 5px;
     font-size: 0.8rem;
+}
+
+.noResults {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    color: #666;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Search form styling */
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+input[type="text"] {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+button[type="submit"] {
+  padding: 0.6rem 1.2rem;
+  background-color: #1e1e2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #2e2e4f;
 }
