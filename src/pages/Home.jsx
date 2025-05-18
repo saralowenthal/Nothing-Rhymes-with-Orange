@@ -4,9 +4,9 @@ import styles from '../styles/home.module.css';
 export default function Home() {
     // storing value of the search input until the form is sibmitted 
     const [searchTerm, setSearchTerm] = useState('');
-
-    const [hasSearched, setHasSearched] = useState(false); // new state
     
+    const [hasSearched, setHasSearched] = useState(false); // new state
+
     const handleChange = (event) => {
       setSearchTerm(event.target.value);
     }
@@ -31,7 +31,6 @@ export default function Home() {
 
       // mark that a search was done
       setHasSearched(true);
-
     }
 
     // found online
