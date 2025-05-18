@@ -17,6 +17,13 @@
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 15px
+}
+
+.logo img {
+  height: 30px;
 }
 
 .links a {
@@ -28,10 +35,10 @@
 }
 
 .links a:hover {
-  color: #ffcc70;
+  color: #e2aa46;
 }
 
 .active {
-  border-bottom: 2px solid #ffcc70;
+  border-bottom: 2px solid #e2aa46;
   padding-bottom: 2px;
 }

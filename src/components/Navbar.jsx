@@ -10,7 +10,10 @@ export default function Navbar() {
     <nav className={styles.nav}>
       
       {/* Logo or title of the application */}
-      <div className={styles.logo}>Color Explorer</div>
+      <div className={styles.logo}>
+        <img src='orange.svg' alt="" />
+        <span>Nothing Rhymes with Orange</span>
+      </div>
       
       {/* Container for navigation links */}
       <div className={styles.links}>
