@@ -2,6 +2,7 @@
 import { NavLink } from 'react-router-dom';
 // Import CSS module styles
 import styles from '../styles/navbar.module.css';
+import logo from '../../public/orange.svg';
 
 // Define and export the Navbar functional component
 export default function Navbar() {
@@ -11,7 +12,7 @@ export default function Navbar() {
       
       {/* Logo or title of the application */}
       <div className={styles.logo}>
-        <img src='/orange.svg' alt="" />
+        <img src={logo} alt="" />
         <span>Nothing Rhymes with Orange</span>
       </div>
       
