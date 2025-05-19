@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
 import { useNavigate } from 'react-router-dom';
+import ColorSwatch from '../components/ColorSwatch';
 
 export default function Details() {
   const navigate = useNavigate();
@@ -44,17 +45,7 @@ export default function Details() {
 
       <h2 className={styles.heading}>{palette.text}</h2>
 
-      <div className={styles.colorSwatches}>
-        {palette.colors.map((color) => (
-          <div
-            key={color}
-            className={styles.colorBox}
-            style={{ backgroundColor: color }}
-          >
-            {color}
-          </div>
-        ))}
-      </div>
+      <ColorSwatch colors={palette.colors} />
 
       <div>
         <h4>Palette Themes:</h4>
