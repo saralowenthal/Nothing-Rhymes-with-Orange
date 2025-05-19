@@ -1,7 +1,7 @@
 // Import the NavLink component from react-router-dom for navigation between routes
 import { NavLink } from 'react-router-dom';
 // Import CSS module styles
-import styles from './Navbar.module.css';
+import styles from '../styles/navbar.module.css';
 
 // Define and export the Navbar functional component
 export default function Navbar() {
