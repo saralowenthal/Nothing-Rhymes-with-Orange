@@ -14,6 +14,18 @@
     grid-gap: 35px;
 }
 
+@media screen and (max-width: 1000px) {
+    .results {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .results {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
 .noResults {
     grid-column: 1 / -1;
     text-align: center;
