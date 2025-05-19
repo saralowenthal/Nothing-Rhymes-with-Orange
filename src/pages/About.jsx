@@ -1,8 +1,8 @@
 import colorWheel from '../assets/colorWheel.jpg'
-
+import styles from '../styles/about.module.css'; 
 export default function About() {
     return (
-      <div style={{ padding: "1rem" }}>
+      <div className={styles.container}>
         <h1>About Color Theory</h1>
   
         <img
