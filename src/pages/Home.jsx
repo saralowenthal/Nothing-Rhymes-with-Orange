@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import styles from '../styles/home.module.css'; 
+import { Link } from 'react-router-dom';
+
 
 export default function Home() {
     // storing value of the search input until the form is sibmitted 
     const [searchTerm, setSearchTerm] = useState('');
     
     const [hasSearched, setHasSearched] = useState(false); // new state
+    const [isSearching, setIsSearching] = useState(false); // new state
 
     const handleChange = (event) => {
       setSearchTerm(event.target.value);
+      setHasSearched(false);
     }
     
     // search using the API
@@ -17,10 +21,13 @@ export default function Home() {
       event.preventDefault();
       console.log(`Searching for ${searchTerm}...`);
 
+      setIsSearching(true);
+
       // call the API
       let paletteUrl = "/colormagic/api/palette/search?q=" + searchTerm;
       const paletteResponse = await fetch(paletteUrl);
       if (!paletteResponse.ok) {
+          setIsSearching(false);
           alert("An error occurred while getting the palette.")
           throw new Error(`Response status: ${paletteResponse.status}`);
       }
@@ -31,6 +38,7 @@ export default function Home() {
 
       // mark that a search was done
       setHasSearched(true);
+      setIsSearching(false);
     }
 
     // found online
@@ -42,7 +50,9 @@ export default function Home() {
 
         <form onSubmit={handleSearch}>
           <input type="text" value={searchTerm} onChange={handleChange} />
-          <button type="submit">Search</button>
+          <button type="submit" disabled={isSearching}>
+            {isSearching ? "Searching..." : "Search"}
+          </button>
         </form>
 
         <div className={styles.results} >
@@ -51,19 +61,24 @@ export default function Home() {
            <p className={styles.noResults}>No results found for "{searchTerm}".</p>        
           )}
 
-          {searchResults.map(result => 
-            <div className={styles.result} key={result.id}>
-                <span className={styles.text}>{result.text}</span>
-                {result.colors.map(color => 
-                  <div className={styles.color} style={{backgroundColor: color}} key={color}>
-                    <span>{color}</span>
-                  </div>
-                )}
-            </div>
-          )}
-        </div>
+          {searchResults.map((result) => (
+          <div className={styles.result} key={result.id}>
+            <Link to={`/id/${result.id}`} className={styles.text}>
+              {result.text}
+            </Link>
 
+            {result.colors.map((color) => (
+              <div
+                className={styles.color}
+                style={{ backgroundColor: color }}
+                key={color}
+              >
+                <span>{color}</span>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-    )
-  }
-  
+    </div>
+  );
+}
