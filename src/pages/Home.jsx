@@ -1,24 +1,16 @@
 import { useState } from 'react';
 import styles from '../styles/home.module.css'; 
 import PaletteCard from '../components/PaletteCard.jsx'; 
+import SearchBar from '../components/SearchBar';
 
 
 export default function Home() {
-    // storing value of the search input until the form is sibmitted 
-    const [searchTerm, setSearchTerm] = useState('');
-    
     const [hasSearched, setHasSearched] = useState(false); // new state
     const [isSearching, setIsSearching] = useState(false); // new state
-
-    const handleChange = (event) => {
-      setSearchTerm(event.target.value);
-      setHasSearched(false);
-    }
     
     // search using the API
     const [searchResults, setSearchResults] = useState([]);
-    const handleSearch = async (event) => {
-      event.preventDefault();
+    const performSearch = async (searchTerm) => {
       console.log(`Searching for ${searchTerm}...`);
 
       setIsSearching(true);
@@ -40,25 +32,17 @@ export default function Home() {
       setHasSearched(true);
       setIsSearching(false);
     }
-
-    // found online
-    // const isDark = hex => parseInt(hex.replace('#', ''), 16) < 0x888888;
     
     return (
       <div className={styles.page}>
         <h1>Search Color Palettes</h1>
 
-        <form onSubmit={handleSearch}>
-          <input type="text" value={searchTerm} onChange={handleChange} />
-          <button type="submit" disabled={isSearching}>
-            {isSearching ? "Searching..." : "Search"}
-          </button>
-        </form>
+        <SearchBar isSearching={isSearching} search={performSearch} setHasSearched={setHasSearched}/>
 
         <div className={styles.results} >
 
           {hasSearched && searchResults.length === 0 && (
-           <p className={styles.noResults}>No results found for "{searchTerm}".</p>        
+           <p className={styles.noResults}>No results found.</p>        
           )}
 
           {searchResults.map((result) => <PaletteCard result={result} key={result.id} /> )}
