@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/home.module.css'; 
+import { Link } from 'react-router-dom';
+
 
 export default function Home() {
     // storing value of the search input until the form is sibmitted 
@@ -59,19 +61,24 @@ export default function Home() {
            <p className={styles.noResults}>No results found for "{searchTerm}".</p>        
           )}
 
-          {searchResults.map(result => 
-            <div className={styles.result} key={result.id}>
-                <span className={styles.text}>{result.text}</span>
-                {result.colors.map(color => 
-                  <div className={styles.color} style={{backgroundColor: color}} key={color}>
-                    <span>{color}</span>
-                  </div>
-                )}
-            </div>
-          )}
-        </div>
+          {searchResults.map((result) => (
+          <div className={styles.result} key={result.id}>
+            <Link to={`/palette/${result.id}`} className={styles.text}>
+              {result.text}
+            </Link>
 
+            {result.colors.map((color) => (
+              <div
+                className={styles.color}
+                style={{ backgroundColor: color }}
+                key={color}
+              >
+                <span>{color}</span>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-    )
-  }
-  
+    </div>
+  );
+}
