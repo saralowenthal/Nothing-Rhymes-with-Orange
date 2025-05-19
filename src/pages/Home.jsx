@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import styles from '../styles/home.module.css'; 
 import PaletteCard from '../components/PaletteCard.jsx'; 
 import SearchBar from '../components/SearchBar';
+import Loader from '../components/Loader';
 
 
 export default function Home() {
@@ -59,7 +60,7 @@ export default function Home() {
            <p className={styles.noResults}>No results found.</p>        
           )}
 
-          {searchResults.map((result) => <PaletteCard result={result} key={result.id} /> )}
+          {isSearching ? <Loader/> : searchResults.map((result) => <PaletteCard result={result} key={result.id} /> )}
       </div>
     </div>
   );

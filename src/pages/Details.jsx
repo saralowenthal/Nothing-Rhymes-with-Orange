@@ -4,6 +4,7 @@ import styles from '../styles/details.module.css';
 import { useNavigate } from 'react-router-dom';
 import ColorSwatch from '../components/ColorSwatch';
 import ColorTag from '../components/ColorTag';
+import Loader from '../components/Loader';
 
 export default function Details() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Details() {
     fetchPalette();
   }, [id]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader/>;
   if (hasError) return <p>Error loading palette.</p>;
   if (!palette) return <p>No palette found.</p>;
 
