@@ -13,7 +13,7 @@ export default function Details() {
       setHasError(false);
       
       try {
-        const response = await fetch(`/colormagic/api/palette/${id}`);
+        const response = await fetch(`/colormagic/api/palettes/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }

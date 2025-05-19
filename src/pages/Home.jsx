@@ -63,7 +63,7 @@ export default function Home() {
 
           {searchResults.map((result) => (
           <div className={styles.result} key={result.id}>
-            <Link to={`/id/${result.id}`} className={styles.text}>
+            <Link to={`/palette/${result.id}`} className={styles.text}>
               {result.text}
             </Link>
 
