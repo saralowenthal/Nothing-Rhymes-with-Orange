@@ -6,9 +6,11 @@ export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     
     const [hasSearched, setHasSearched] = useState(false); // new state
+    const [isSearching, setIsSearching] = useState(false); // new state
 
     const handleChange = (event) => {
       setSearchTerm(event.target.value);
+      setHasSearched(false);
     }
     
     // search using the API
@@ -17,10 +19,13 @@ export default function Home() {
       event.preventDefault();
       console.log(`Searching for ${searchTerm}...`);
 
+      setIsSearching(true);
+
       // call the API
       let paletteUrl = "/colormagic/api/palette/search?q=" + searchTerm;
       const paletteResponse = await fetch(paletteUrl);
       if (!paletteResponse.ok) {
+          setIsSearching(false);
           alert("An error occurred while getting the palette.")
           throw new Error(`Response status: ${paletteResponse.status}`);
       }
@@ -31,6 +36,7 @@ export default function Home() {
 
       // mark that a search was done
       setHasSearched(true);
+      setIsSearching(false);
     }
 
     // found online
@@ -42,7 +48,9 @@ export default function Home() {
 
         <form onSubmit={handleSearch}>
           <input type="text" value={searchTerm} onChange={handleChange} />
-          <button type="submit">Search</button>
+          <button type="submit" disabled={isSearching}>
+            {isSearching ? "Searching..." : "Search"}
+          </button>
         </form>
 
         <div className={styles.results} >
