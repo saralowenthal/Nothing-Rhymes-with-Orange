@@ -2,7 +2,7 @@
   "homepage": "https://saralowenthal.github.io/Nothing-Rhymes-with-Orange",
   "name": "nothing-rhymes-with-orange",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
