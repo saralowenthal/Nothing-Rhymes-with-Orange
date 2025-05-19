@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
+import { Link } from 'react-router-dom';
 
 export default function Details() {
   const { id } = useParams();
@@ -37,6 +38,9 @@ export default function Details() {
 
   return (
     <div className={styles.container}>
+      
+      <Link to="/" className={styles.backLink}>← Back</Link>
+
       <h2 className={styles.heading}>{palette.text}</h2>
 
       <div className={styles.colorSwatches}>
