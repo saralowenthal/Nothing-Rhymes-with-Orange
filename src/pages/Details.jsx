@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import styles from '../styles/details.module.css';
 
 export default function Details() {
   const { id } = useParams();
@@ -11,13 +12,10 @@ export default function Details() {
     async function fetchPalette() {
       setIsLoading(true);
       setHasError(false);
-      
+
       try {
         const response = await fetch(`/colormagic/api/palettes/${id}`);
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
         const data = await response.json();
         setPalette(data);
       } catch (error) {
@@ -35,17 +33,37 @@ export default function Details() {
   if (hasError) return <p>Error loading palette.</p>;
   if (!palette) return <p>No palette found.</p>;
 
+  const formattedDate = new Date(palette.createdAt).toLocaleDateString();
+
   return (
-    <div>
-      <h2>{palette.text}</h2>
-      <div>
+    <div className={styles.container}>
+      <h2 className={styles.heading}>{palette.text}</h2>
+
+      <div className={styles.colorSwatches}>
         {palette.colors.map((color) => (
           <div
             key={color}
+            className={styles.colorBox}
+            style={{ backgroundColor: color }}
           >
             {color}
           </div>
         ))}
+      </div>
+
+      <div>
+        <h4>Palette Themes:</h4>
+        <div className={styles.tags}>
+          {palette.tags.map((tag) => (
+            <span key={tag} className={styles.tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.meta}>
+        <p><strong>Created on:</strong> {formattedDate}</p>
       </div>
     </div>
   );
