@@ -3,9 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
 import { useNavigate } from 'react-router-dom';
-import ColorSwatch from '../components/ColorSwatch';
 import ColorTag from '../components/ColorTag';
-import Loader from '../components/Loader';
 
 export default function Details() {
   const navigate = useNavigate();
@@ -17,6 +15,7 @@ export default function Details() {
   const [palette, setPalette] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [copiedColor, setCopiedColor] = useState(null); // NEW
 
   useEffect(() => {
     async function fetchPalette() {
@@ -47,6 +46,8 @@ export default function Details() {
 
   const handleCopy = (color) => {
     navigator.clipboard.writeText(color);
+    setCopiedColor(color); // NEW
+    setTimeout(() => setCopiedColor(null), 1000); // Hide after 1 sec
   };
 
   return (
@@ -65,7 +66,7 @@ export default function Details() {
             onClick={() => handleCopy(color)}
             title="Click to copy HEX Value"
           >
-            {color}
+            {copiedColor === color ? 'Copied!' : color}
           </div>
         ))}
       </div>
