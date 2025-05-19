@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ColorSwatch from '../components/ColorSwatch';
 import ColorTag from '../components/ColorTag';
 import Loader from '../components/Loader';
+const isProd = import.meta.env.PROD;
 
 export default function Details() {
   const navigate = useNavigate();
@@ -24,7 +25,8 @@ export default function Details() {
       setHasError(false);
 
       try {
-        const response = await fetch(`/colormagic/api/palettes/${id}`);
+        const base = isProd ? 'https://corsproxy.io/?https://colormagic.app/' : '/colormagic/';
+        const response = await fetch(`${base}api/palettes/${id}`);
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         const data = await response.json();
         setPalette(data);
