@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from '../styles/home.module.css'; 
-import { Link } from 'react-router-dom';
+import PaletteCard from '../components/PaletteCard.jsx'; 
 
 
 export default function Home() {
@@ -61,23 +61,7 @@ export default function Home() {
            <p className={styles.noResults}>No results found for "{searchTerm}".</p>        
           )}
 
-          {searchResults.map((result) => (
-          <div className={styles.result} key={result.id}>
-            <Link to={`/palette/${result.id}`} className={styles.text}>
-              {result.text}
-            </Link>
-
-            {result.colors.map((color) => (
-              <div
-                className={styles.color}
-                style={{ backgroundColor: color }}
-                key={color}
-              >
-                <span>{color}</span>
-              </div>
-            ))}
-          </div>
-        ))}
+          {searchResults.map((result) => <PaletteCard result={result} key={result.id} /> )}
       </div>
     </div>
   );
