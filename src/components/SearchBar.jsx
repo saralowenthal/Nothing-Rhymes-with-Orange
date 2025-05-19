@@ -1,13 +1,19 @@
 import styles from '../styles/searchBar.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-export default function SearchBar({isSearching, search, setHasSearched}) {
+export default function SearchBar({isSearching, setHasSearched}) {
+    // initial value should be from the url
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get('q') || '';
+    useEffect(() => { setSearchTerm(query); }, [query]);  // update the input whenever the url changes
+
     // storing value of the search input until the form is sibmitted 
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(query);
     const handleSearch = async (event) => {
         event.preventDefault();
-        if (searchTerm.length) {
-            search(searchTerm);
+        if (searchTerm.trim().length) {
+            setSearchParams({ q: searchTerm.trim() }); // the home component looks out for this change
         }
     }
     const handleChange = (event) => {

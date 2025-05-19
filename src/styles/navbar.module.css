@@ -7,6 +7,7 @@
   z-index: 1000;           /* Make sure it stays above other elements */
   display: flex;
   justify-content: space-between;
+  row-gap: 10px;
   align-items: center;
   background-color: #1e1e2f;
   padding: 1rem 2rem;
@@ -14,12 +15,19 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+@media screen and (max-width: 700px) {
+  .nav {
+    flex-direction: column;
+  }
+  .logo span {
+    font-size: 1.3rem !important;
+  }
+}
+
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 15px
+  gap: 15px;
 }
 
 .logo img {
@@ -27,8 +35,18 @@
   margin: 0;
 }
 
+.logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
 .links a {
-  margin-left: 1.5rem;
   text-decoration: none;
   color: white;
   font-weight: 500;
@@ -39,7 +57,7 @@
   color: #e2aa46;
 }
 
-.active {
+.links a.active {
   border-bottom: 2px solid #e2aa46;
   padding-bottom: 2px;
 }
