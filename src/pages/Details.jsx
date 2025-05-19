@@ -36,6 +36,10 @@ export default function Details() {
 
   const formattedDate = new Date(palette.createdAt).toLocaleDateString();
 
+  const handleCopy = (color) => {
+    navigator.clipboard.writeText(color);
+  };
+
   return (
     <div className={styles.container}>
       
@@ -49,6 +53,8 @@ export default function Details() {
             key={color}
             className={styles.colorBox}
             style={{ backgroundColor: color }}
+            onClick={() => handleCopy(color)}
+            title="Click to copy HEX Value"
           >
             {color}
           </div>
