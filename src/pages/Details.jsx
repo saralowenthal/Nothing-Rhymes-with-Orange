@@ -1,3 +1,4 @@
+// Import React hooks and modules for routing and styling
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
@@ -8,7 +9,11 @@ import Loader from '../components/Loader';
 
 export default function Details() {
   const navigate = useNavigate();
+
+  // Get palette ID from URL
   const { id } = useParams();
+
+  // State to store the palette data, loading status, and error state
   const [palette, setPalette] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -34,11 +39,15 @@ export default function Details() {
     fetchPalette();
   }, [id]);
 
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <p>Loading...</p>;
   if (hasError) return <p>Error loading palette.</p>;
   if (!palette) return <p>No palette found.</p>;
 
   const formattedDate = new Date(palette.createdAt).toLocaleDateString();
+
+  const handleCopy = (color) => {
+    navigator.clipboard.writeText(color);
+  };
 
   return (
     <div className={styles.container}>
@@ -47,7 +56,19 @@ export default function Details() {
 
       <h2 className={styles.heading}>{palette.text}</h2>
 
-      <ColorSwatch colors={palette.colors} />
+      <div className={styles.colorSwatches}>
+        {palette.colors.map((color) => (
+          <div
+            key={color}
+            className={styles.colorBox}
+            style={{ backgroundColor: color }}
+            onClick={() => handleCopy(color)}
+            title="Click to copy HEX Value"
+          >
+            {color}
+          </div>
+        ))}
+      </div>
 
       <div>
         <h4>Palette Themes:</h4>
