@@ -1,3 +1,4 @@
+// Import React hooks and modules for routing and styling
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
@@ -8,7 +9,11 @@ import Loader from '../components/Loader';
 
 export default function Details() {
   const navigate = useNavigate();
+
+  // Get palette ID from URL
   const { id } = useParams();
+
+  // State to store the palette data, loading status, and error state
   const [palette, setPalette] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -34,7 +39,7 @@ export default function Details() {
     fetchPalette();
   }, [id]);
 
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <p>Loading...</p>;
   if (hasError) return <p>Error loading palette.</p>;
   if (!palette) return <p>No palette found.</p>;
 
@@ -51,7 +56,6 @@ export default function Details() {
 
       <h2 className={styles.heading}>{palette.text}</h2>
 
-<<<<<<< HEAD
       <div className={styles.colorSwatches}>
         {palette.colors.map((color) => (
           <div
@@ -65,9 +69,6 @@ export default function Details() {
           </div>
         ))}
       </div>
-=======
-      <ColorSwatch colors={palette.colors} />
->>>>>>> 4fc3b52de0ed9d826990940c55f02ea7c7a863d7
 
       <div>
         <h4>Palette Themes:</h4>
