@@ -4,7 +4,7 @@ import styles from '../styles/home.module.css';
 import PaletteCard from '../components/PaletteCard.jsx'; 
 import SearchBar from '../components/SearchBar';
 import Loader from '../components/Loader';
-
+const isProd = import.meta.env.PROD;
 
 export default function Home() {
     const [searchParams] = useSearchParams();
@@ -31,7 +31,8 @@ export default function Home() {
       setIsSearching(true);
 
       // call the API
-      let paletteUrl = "/colormagic/api/palette/search?q=" + searchTerm;
+      const base = isProd ? 'https://corsproxy.io/?https://colormagic.app/' : '/colormagic/';
+      let paletteUrl = base + "api/palette/search?q=" + searchTerm;
       const paletteResponse = await fetch(paletteUrl);
       if (!paletteResponse.ok) {
           setIsSearching(false);
