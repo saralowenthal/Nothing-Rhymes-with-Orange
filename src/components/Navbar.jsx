@@ -11,7 +11,7 @@ export default function Navbar() {
       
       {/* Logo or title of the application */}
       <div className={styles.logo}>
-        <img src='orange.svg' alt="" />
+        <img src='/orange.svg' alt="" />
         <span>Nothing Rhymes with Orange</span>
       </div>
       
