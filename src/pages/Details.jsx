@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
 import { useNavigate } from 'react-router-dom';
 import ColorSwatch from '../components/ColorSwatch';
+import ColorTag from '../components/ColorTag';
 
 export default function Details() {
   const navigate = useNavigate();
@@ -50,11 +51,7 @@ export default function Details() {
       <div>
         <h4>Palette Themes:</h4>
         <div className={styles.tags}>
-          {palette.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
+          {palette.tags.map((tag) => <ColorTag tag={tag} key={tag} />)}
         </div>
       </div>
 
