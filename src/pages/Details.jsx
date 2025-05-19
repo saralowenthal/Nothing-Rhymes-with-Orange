@@ -1,9 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from '../styles/details.module.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import ColorSwatch from '../components/ColorSwatch';
+import ColorTag from '../components/ColorTag';
+import Loader from '../components/Loader';
 
 export default function Details() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [palette, setPalette] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +34,7 @@ export default function Details() {
     fetchPalette();
   }, [id]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader/>;
   if (hasError) return <p>Error loading palette.</p>;
   if (!palette) return <p>No palette found.</p>;
 
@@ -39,30 +43,16 @@ export default function Details() {
   return (
     <div className={styles.container}>
       
-      <Link to="/" className={styles.backLink}>← Back</Link>
+      <span onClick={() => navigate(-1)} className={styles.backLink}>← Back</span>
 
       <h2 className={styles.heading}>{palette.text}</h2>
 
-      <div className={styles.colorSwatches}>
-        {palette.colors.map((color) => (
-          <div
-            key={color}
-            className={styles.colorBox}
-            style={{ backgroundColor: color }}
-          >
-            {color}
-          </div>
-        ))}
-      </div>
+      <ColorSwatch colors={palette.colors} />
 
       <div>
         <h4>Palette Themes:</h4>
         <div className={styles.tags}>
-          {palette.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
+          {palette.tags.map((tag) => <ColorTag tag={tag} key={tag} />)}
         </div>
       </div>
 

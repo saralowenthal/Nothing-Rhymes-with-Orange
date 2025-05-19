@@ -1,0 +1,18 @@
+.colorBox {
+  flex: 1 1 120px;
+  height: 100px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #333;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.colorBox:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}

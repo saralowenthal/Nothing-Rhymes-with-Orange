@@ -1,12 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styles from '../styles/home.module.css'; 
 import PaletteCard from '../components/PaletteCard.jsx'; 
 import SearchBar from '../components/SearchBar';
+import Loader from '../components/Loader';
 
 
 export default function Home() {
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get('q');
+
     const [hasSearched, setHasSearched] = useState(false); // new state
     const [isSearching, setIsSearching] = useState(false); // new state
+
+    // Search using the navigation
+    useEffect(() => {
+      if (query) performSearch(query);
+      else {
+        // when clicks the home button, should start over
+        setSearchResults([]);
+        setHasSearched(false);
+      }
+    }, [query]);
     
     // search using the API
     const [searchResults, setSearchResults] = useState([]);
@@ -37,7 +52,7 @@ export default function Home() {
       <div className={styles.page}>
         <h1>Search Color Palettes</h1>
 
-        <SearchBar isSearching={isSearching} search={performSearch} setHasSearched={setHasSearched}/>
+        <SearchBar isSearching={isSearching} setHasSearched={setHasSearched}/>
 
         <div className={styles.results} >
 
@@ -45,7 +60,7 @@ export default function Home() {
            <p className={styles.noResults}>No results found.</p>        
           )}
 
-          {searchResults.map((result) => <PaletteCard result={result} key={result.id} /> )}
+          {isSearching ? <Loader/> : searchResults.map((result) => <PaletteCard result={result} key={result.id} /> )}
       </div>
     </div>
   );
